@@ -31,7 +31,7 @@ jobs:
 
     - name: Set RDP Password
       run: |
-        $password = ConvertTo-SecureString "YourPasswordHere" -AsPlainText -Force
+        $password = ConvertTo-SecureString "Str0ngPa$$w0rd!" -AsPlainText -Force
         Set-LocalUser -Name "runneradmin" -Password $password
         
     - name: Create Tunnel
