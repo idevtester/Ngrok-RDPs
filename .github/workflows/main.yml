@@ -31,11 +31,18 @@ jobs:
 
     - name: Set RDP Password
       run: |
-        $password = ConvertTo-SecureString "Str0ngPa$$w0rd!" -AsPlainText -Force
+        $password = ConvertTo-SecureString "ComplexP@ssw0rd2024!" -AsPlainText -Force
         Set-LocalUser -Name "runneradmin" -Password $password
-        
+
     - name: Create Tunnel
       run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp 1337"'
+      
+    - name: Log RDP Connection Details
+      run: |
+        $ngrokUrl = (.\ngrok\ngrok.exe status).split("tcp://")[1].split(" ")[0]
+        Write-Output "RDP Connection String: $ngrokUrl"
+        Write-Output "Username: runneradmin"
+        Write-Output "Password: ComplexP@ssw0rd2024!"
 
     - name: Connect to RDPs [By @Pari_Malam]
       run: cmd /c parimalam.exe
